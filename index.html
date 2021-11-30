@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1">
+		<link rel="stylesheet" href="css/vanilla.css">
+        <link rel="stylesheet" href="css/style.css">		
+	</head>
+	<script>
+		function submitForm() {
+			console.log('submitting');
+			// Form fields, see IDs above
+			if(!document.querySelector('#name').value) { alert("Name is mandatory"); return false; }
+			if(!document.querySelector('#email').value) { alert("Email is mandatory"); return false; }
+
+			const params = {
+				name: document.querySelector('#name').value,
+				email: document.querySelector('#email').value
+			}
+
+			const http = new XMLHttpRequest()
+			http.open('POST', 'http://ivs-lb-1400434448.ap-southeast-1.elb.amazonaws.com/ivs-be/users')
+			http.setRequestHeader('Content-type', 'application/json')
+			http.send(JSON.stringify(params)) // Make sure to stringify
+			http.onload = function() {
+				// Do whatever with response
+				(http.status === 200) ? alert("Success submitting data.") : alert("Fail submitting data.")
+			}
+		}
+	</script>
+	<body class="vanilla">
+		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm4l2tjMSbf_j70vJK6ccmK3_VLMwIbACHLA&usqp=CAU" />
+		<header>
+			<h1>Event Today - Learning HTML with Mr. John Smith</h1>
+
+		</header>
+		<hr />
+		<form class="vanilla" onsubmit="event.preventDefault(); submitForm();">
+			<div>
+			<label>Name</label>
+			<input type="text" name="name" id="name"/>
+			</div>
+			<div>
+			<label>Email</label>
+			<input type="email" name="email" id="email"/>
+			</div>
+			<div>
+			<input type="submit" />
+			</div>
+		</form>
+		<hr />
+		<section>
+			<article>
+				<div id="pot">
+					<img src="https://i.stack.imgur.com/qgNyF.png?s=328&g=1" width=100px height=100px>
+				</div>  		
+			</article>	
+
+		</section>
+    </body>
+</html>
